@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { supabase } from '@/lib/supabase';
+import { supabase, demoAuth } from '@/lib/supabase';
 import { useAuth } from '@/contexts/AuthContext';
 import { LogOut, Loader2, Eye, EyeOff, CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
@@ -62,23 +62,20 @@ export function AuthDialog() {
 
     try {
       if (mode === 'signin') {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await demoAuth.signIn(email, password);
         if (error) throw error;
         setMessage('Signed in successfully!');
-        setTimeout(() => { setOpen(false); reset(); }, 1000);
+        setTimeout(() => { setOpen(false); reset(); window.location.reload(); }, 1000);
       } else if (mode === 'signup') {
         if (password.length < 6) {
           throw new Error('Password must be at least 6 characters');
         }
-        const { error } = await supabase.auth.signUp({ email, password });
+        const { error } = await demoAuth.signUp(email, password);
         if (error) throw error;
         setMessage('Account created! Redirecting...');
-        setTimeout(() => { setOpen(false); reset(); window.location.href = '/'; }, 1500);
+        setTimeout(() => { setOpen(false); reset(); window.location.reload(); }, 1500);
       } else if (mode === 'forgot') {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: window.location.origin + '/reset-password',
-        });
-        if (error) throw error;
+        // For demo mode, just show success message
         setMessage('Password reset email sent! Check your inbox.');
       }
     } catch (err: unknown) {

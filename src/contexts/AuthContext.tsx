@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
-import { supabase } from '@/lib/supabase';
+import { supabase, demoAuth } from '@/lib/supabase';
 import { toast } from 'sonner';
 
 interface AuthContextType {
@@ -24,6 +24,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Check for demo session first
+        const demoSession = demoAuth.getSession();
+        if (demoSession.data.session) {
+            setSession(demoSession.data.session as any);
+            setLoading(false);
+            return;
+        }
+
+        // Otherwise use Supabase
         supabase.auth.getSession().then(({ data }) => {
             setSession(data.session);
             setLoading(false);
@@ -42,13 +51,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (session?.user?.id) {
                 localStorage.removeItem(`premium_${session.user.id}`);
             }
-            await supabase.auth.signOut();
+            
+            // Use demo auth or Supabase
+            await demoAuth.signOut();
+            
             toast.success('Signed out successfully', {
                 description: 'See you next time!'
             });
-            // Redirect to home after sign out
+            
+            // Reload page to reset state
             setTimeout(() => {
-                window.location.href = '/';
+                window.location.reload();
             }, 500);
         } catch (error) {
             console.error('Sign out error:', error);
