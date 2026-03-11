@@ -6,10 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { User, Mail, Phone, MapPin, Calendar, LogOut } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Calendar } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function Profile() {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const [displayName, setDisplayName] = useState<string>('');
   const [customerName, setCustomerName] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -50,7 +51,11 @@ export default function Profile() {
   };
 
   const saveProfile = async () => {
-    if (!user) return alert('Sign in to update profile');
+    if (!user) {
+      toast.error('Please sign in to update your profile');
+      return;
+    }
+    
     setLoading(true);
     try {
       const { error } = await supabase.auth.updateUser({ 
@@ -63,11 +68,24 @@ export default function Profile() {
           avatar_base64: avatarData 
         } 
       });
+      
       if (error) throw error;
-      alert('Profile updated successfully!');
+      
+      toast.success('Profile updated successfully!', {
+        description: 'Your changes have been saved.'
+      });
     } catch (err: any) {
-      console.error(err);
-      alert(err?.message || 'Failed to update profile');
+      console.error('Profile update error:', err);
+      
+      if (err.message?.includes('CORS') || err.message?.includes('fetch')) {
+        toast.error('Connection error', {
+          description: 'Please check your internet connection and try again.'
+        });
+      } else {
+        toast.error('Failed to update profile', {
+          description: err?.message || 'Please try again later.'
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -80,14 +98,14 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-background pb-28">
       <Header />
-      <main className="relative z-10 max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="font-display text-3xl font-bold text-foreground mb-2">Profile</h1>
         <p className="text-sm text-muted-foreground mb-6">Manage your account information and preferences</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column - Avatar */}
           <div className="lg:col-span-1">
-            <div className="rounded-lg border border-border p-6 bg-card/95 backdrop-blur-sm sticky top-20">
+            <div className="rounded-lg border border-border p-6 bg-card sticky top-20">
               <div className="flex flex-col items-center">
                 <div className="w-32 h-32 rounded-full overflow-hidden bg-secondary mb-4 ring-2 ring-border">
                   {avatarData ? (
@@ -126,17 +144,6 @@ export default function Profile() {
                     </div>
                   </div>
                 </div>
-                
-                {/* Sign Out Button */}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={signOut}
-                  className="w-full mt-4 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950"
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Sign Out
-                </Button>
               </div>
             </div>
           </div>
@@ -144,7 +151,7 @@ export default function Profile() {
           {/* Right Column - Form Fields */}
           <div className="lg:col-span-2 space-y-6">
             {/* Personal Information */}
-            <div className="rounded-lg border border-border p-6 bg-card/95 backdrop-blur-sm">
+            <div className="rounded-lg border border-border p-6 bg-card">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <User className="w-5 h-5" />
                 Personal Information
@@ -233,7 +240,7 @@ export default function Profile() {
             </div>
 
             {/* Listening Trends */}
-            <div className="rounded-lg border border-border p-6 bg-card/95 backdrop-blur-sm">
+            <div className="rounded-lg border border-border p-6 bg-card">
               <h2 className="text-lg font-semibold mb-4">Listening Trends</h2>
               {topListens.length === 0 ? (
                 <div className="text-center py-8">

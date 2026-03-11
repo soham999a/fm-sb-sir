@@ -18,7 +18,7 @@ You're working on a FORK. You need to create a PR from your fork to the upstream
 
 1. **Title** (Copy this):
 ```
-Fix: Premium page blank screen, search dropdown & implement ad system
+Fix: tetell
 ```
 
 2. **Description** (Copy from PR-DESCRIPTION.md or use this):

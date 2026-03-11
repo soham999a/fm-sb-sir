@@ -1,0 +1,44 @@
+ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. Error Component Stack
+    at BrowserRouter (react-router-dom.js?v=c5bc06c9:5247:5)
+    at PlayerProvider (PlayerContext.tsx:24:34)
+    at Provider (chunk-TFW4UQN3.js?v=c5bc06c9:48:15)
+    at TooltipProvider (@radix-ui_react-tooltip.js?v=c5bc06c9:57:5)
+    at AuthProvider (AuthContext.tsx:22:32)
+    at QueryClientProvider (@tanstack_react-query.js?v=c5bc06c9:3167:3)
+    at App (<anonymous>)
+overrideMethod @ installHook.js:1Understand this warning
+installHook.js:1 ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath. Error Component Stack
+    at BrowserRouter (react-router-dom.js?v=c5bc06c9:5247:5)
+    at PlayerProvider (PlayerContext.tsx:24:34)
+    at Provider (chunk-TFW4UQN3.js?v=c5bc06c9:48:15)
+    at TooltipProvider (@radix-ui_react-tooltip.js?v=c5bc06c9:57:5)
+    at AuthProvider (AuthContext.tsx:22:32)
+    at QueryClientProvider (@tanstack_react-query.js?v=c5bc06c9:3167:3)
+    at App (<anonymous>)
+overrideMethod @ installHook.js:1Understand this warning
+main.tsx:13 ✅ Service Worker registered: http://localhost:8080/
+useFavorites.ts:65 Premium status changed: false User ID: 6aff6266-e054-4188-806e-c74ba212cc0b
+useFavorites.ts:55 Premium status on load: false User ID: 6aff6266-e054-4188-806e-c74ba212cc0b
+useFavorites.ts:65 Premium status changed: false User ID: 6aff6266-e054-4188-806e-c74ba212cc0b
+:8080/:1 <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes">Understand this warning
+useFavorites.ts:65 Premium status changed: false User ID: 6aff6266-e054-4188-806e-c74ba212cc0b
+useFavorites.ts:65 Premium status changed: false User ID: 6aff6266-e054-4188-806e-c74ba212cc0b
+profile:1 Access to fetch at 'https://kzdxxwznkjwblthpeige.supabase.co/auth/v1/user' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.Understand this error
+kzdxxwznkjwblthpeige.supabase.co/auth/v1/user:1  Failed to load resource: net::ERR_FAILEDUnderstand this error
+installHook.js:1 TypeError: Failed to fetch
+    at @supabase_supabase-js.js?v=c5bc06c9:6938:23
+    at _handleRequest2 (@supabase_supabase-js.js?v=c5bc06c9:7228:20)
+    at _request (@supabase_supabase-js.js?v=c5bc06c9:7218:22)
+    at @supabase_supabase-js.js?v=c5bc06c9:9841:50
+    at SupabaseAuthClient._useSession (@supabase_supabase-js.js?v=c5bc06c9:9701:20)
+    at async SupabaseAuthClient._updateUser (@supabase_supabase-js.js?v=c5bc06c9:9826:14)
+    at async @supabase_supabase-js.js?v=c5bc06c9:9821:14
+overrideMethod @ installHook.js:1Understand this error
+installHook.js:1 AuthRetryableFetchError: Failed to fetch
+    at _handleRequest2 (@supabase_supabase-js.js?v=c5bc06c9:7231:11)
+    at async _request (@supabase_supabase-js.js?v=c5bc06c9:7218:16)
+    at async @supabase_supabase-js.js?v=c5bc06c9:9841:44
+    at async SupabaseAuthClient._useSession (@supabase_supabase-js.js?v=c5bc06c9:9701:14)
+    at async SupabaseAuthClient._updateUser (@supabase_supabase-js.js?v=c5bc06c9:9826:14)
+    at async @supabase_supabase-js.js?v=c5bc06c9:9821:14
+overrideMethod @ installHook.js:1Understand this error
