@@ -533,15 +533,16 @@ const Index = () => {
       <Header />
 
       {/* Hero */}
-      <section className="relative bg-grid-texture">
+      <section className="relative bg-grid-texture" style={{ zIndex: 1 }}>
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/60 to-background pointer-events-none" />
 
-        <div className="relative max-w-2xl mx-auto px-4 pt-10 pb-8">
+        <div className="relative max-w-2xl mx-auto px-4 pt-10 pb-8" style={{ zIndex: 2 }}>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
+            style={{ position: 'relative', zIndex: 3 }}
           >
             {/* Badge */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/30 bg-primary/8 mb-5">

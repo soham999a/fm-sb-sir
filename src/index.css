@@ -48,6 +48,24 @@
     --surface-elevated: 0 0% 96%;
 
     /* Region accent colors – keep subtle but desaturated */
+
+  }
+
+  /* Search bar protection - ensure it stays above dialogs */
+  .search-bar-container {
+    position: relative !important;
+    z-index: 50000 !important;
+    isolation: isolate !important;
+  }
+
+  /* Prevent search bar collapse during dialog open */
+  [data-radix-popper-content-wrapper] {
+    z-index: 40000 !important;
+  }
+
+  [data-state="open"] ~ * .search-bar-container {
+    z-index: 50000 !important;
+  }
     --india-saffron: 24 60% 55%;
     --india-green: 120 40% 30%;
     --us-blue: 217 30% 50%;

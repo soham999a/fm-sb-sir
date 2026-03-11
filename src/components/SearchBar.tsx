@@ -58,7 +58,15 @@ export function SearchBar({ className }: SearchBarProps) {
   const showDropdown = isOpen && query.length >= 2;
 
   return (
-    <div ref={containerRef} className={cn("relative", className)} style={{ zIndex: 9999 }}>
+    <div 
+      ref={containerRef} 
+      className={cn("relative search-bar-container", className)} 
+      style={{ 
+        zIndex: 50000,
+        position: 'relative',
+        isolation: 'isolate'
+      }}
+    >
       <div className="relative">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
         <input
@@ -83,14 +91,14 @@ export function SearchBar({ className }: SearchBarProps) {
           }}
           placeholder="Search stations, genres, countries..."
           className="w-full h-12 pl-12 pr-10 rounded-full bg-secondary border border-border focus:border-primary/50 focus:ring-2 focus:ring-primary/20 outline-none transition-all text-foreground placeholder:text-muted-foreground"
-          style={{ position: 'relative', zIndex: 1 }}
+          style={{ position: 'relative', zIndex: 50001 }}
         />
         {query && (
           <button
             onClick={handleClear}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             type="button"
-            style={{ zIndex: 2 }}
+            style={{ zIndex: 50002 }}
           >
             <X className="w-4 h-4" />
           </button>
@@ -102,7 +110,7 @@ export function SearchBar({ className }: SearchBarProps) {
         <div
           className="absolute top-full mt-2 left-0 right-0 rounded-xl overflow-hidden max-h-80 overflow-y-auto"
           style={{ 
-            zIndex: 10000,
+            zIndex: 50003,
             position: 'absolute',
             backgroundColor: '#1a1a1a',
             border: '2px solid hsl(var(--primary))',
